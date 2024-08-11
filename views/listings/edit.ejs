@@ -1,0 +1,182 @@
+
+<style>
+
+    .checkbox-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+      .checkbox-container {
+                display: flex;
+                align-items: center;
+                margin: 10px 0;
+            }
+            .checkbox-label {
+                margin-left: 8px;
+            }
+    </style>
+
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+
+    <h3>Edit your Listing</h3>
+    <form method="post" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="listing[title]" value="<%=listing.title%>" type="text" class="form-control" required>
+
+            <div class="invalid-feedback">Please enter a title!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="listing[description]" class="form-control" required><%=listing.description%></textarea>
+
+            <div class="invalid-feedback">Please enter a description!</div>
+        </div>
+
+        <div class="mb-3">
+            Original Listing Image <br>
+            <img src="<%= originalImageUrl %>" />
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload New Image</label>
+            <input name="listing[image]" type="file" class="form-control">
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="price" class="form-label">Price</label>
+                <input name="listing[price]" value="<%=listing.price%>" type="number" class="form-control" required>
+
+                <div class="invalid-feedback">Please enter a price!</div>
+            </div>
+    
+            <div class="mb-3 col-md-8">
+                <label for="country" class="form-label">Country</label>
+                <input name="listing[country]" value="<%=listing.country%>" type="text" class="form-control" required>
+
+                <div class="invalid-feedback">Please enter a country!</div>
+                </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input name="listing[location]" value="<%=listing.location%>" type="text" class="form-control" required>
+
+            <div class="invalid-feedback">Please enter a location!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Please select category (2 or more)</label>
+
+            <div class="checkbox-grid">
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Trending" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Trending</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Rooms" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Rooms</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Iconic Cities" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Iconic Cities</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Mountains" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Mountains</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Castles" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Castles</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Amazing Pools" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Amazing Pools</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Camping" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Camping</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Farms" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Farms</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Arctic" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Arctic</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Tropical" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Tropical</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Beaches" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Beaches</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Skiing" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Skiing</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Sports" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Sports</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Bed and Breakfast" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Bed and Breakfast</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Cloudy" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Cloudy</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="RiverSide" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">RiverSide</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Boat" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Boat</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" name="listing[category]" value="Luxury" class="category-checkbox" checked>
+                <label for="category" class="checkbox-label form-control">Luxury</label>
+            </div>
+        </div>
+
+      </div>
+        
+
+        <button class = "btn btn-dark mt-2 mb-3 edit-btn" id="editButton">Edit</button>
+    </form>
+
+</div>
+</div>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+    const checkboxes = document.querySelectorAll('.category-checkbox');
+    const addButton = document.getElementById('editButton');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateButtonState);
+    });
+
+    function updateButtonState() {
+        const checkedCount = document.querySelectorAll('.category-checkbox:checked').length;
+        addButton.disabled = checkedCount < 2;
+    }
+});
+</script>

@@ -1,0 +1,163 @@
+<style>
+    .card-img-top:hover{
+        opacity: 0.8;
+    }
+
+    .review-icon{
+        background-color: rgb(0,0,0,0.1);
+        width: 2.8vw;
+        height: 2.8vw;
+        margin: 0.8rem 0 1rem 0;
+        border-radius: 50%
+    }
+</style>
+
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3">
+    <div class="col-8 offset-3 mb-2">
+        <h3><%=listing.title%></h3>
+</div>
+
+    <div class="card col-6 offset-3 show-card listing-card">
+        <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
+        <div class="card-body mt-4">
+
+          <p class="card-text"><b>Owned By: </b><i><b><%= listing.owner.username %></b></i></p>
+          <p class="card-text"><b>Description: </b><i><%=listing.description%></i></p>
+          <p class="card-text"><b>Price: </b><i>&#8377;<%=listing.price.toLocaleString("en-IN")%></i></p>
+          <p class="card-text"><b>Location: </b><i><%=listing.location%></i></p>
+          <p class="card-text"><b>Country: </b><i><%=listing.country%></i></p>
+          <p class="card-text"><b>Category: </b><i><%=categoryString%></i>
+        </div>
+    </div>
+    <br/>
+
+    <%  if(currUser && currUser._id.equals(listing.owner._id)){  %>
+
+    <div class="btns">
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
+        <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
+            <button class="btn btn-dark offset-5">Delete</button>
+        </form>
+    </div>
+    <%   }  %>
+
+
+    <div class="col-8 offset-3 mb-3">
+        <%if(currUser){%>
+            <hr>
+        <h4>Leave a Review</h4>
+        <form action="/listings/<%= listing._id %>/reviews" method="post" class="needs-validation" novalidate>
+
+            <div class="mb-3 mt-3">
+                <label for="rating" class="form-label">Rating</label>
+            <fieldset class="starability-grow ">
+
+                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+
+              </fieldset>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="comment" class="form-label">Comments</label>
+                <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+                <div class="invalid-feedback">Please write some comments for review</div>
+            </div>
+            
+            <button class="btn btn-dark btn-submit">Submit</button>
+            
+        </form>
+
+        <hr/>
+
+        <%}%>
+
+        <% if(listing.reviews.length > 0){  %>
+        <div class="row">
+            <p><b>All Reviews</b></p>
+        <% for(review of listing.reviews)  {%>
+            <div class="card col-5 ms-3 mb-3">
+                <div class="card-body">
+                    <div class="review-icon"></div>
+                     <p class="card-title mt-3"><%= review.author.username %></p>
+                     <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+                    <p class="card-text"> <%= review.comment %> </p> 
+                </div>
+
+                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method = "post" class="mb-3">
+                    <button class="btn btn-sm btn-dark btn-delete mt-4">Delete</button>
+                </form>
+
+            </div>
+     <%   }  %>
+    </div>
+    <% } %>
+    </div>
+
+    <hr>
+
+    <h2 class="text-center p-3 mb-3">Frequently Asked Questions</h2>
+
+    <div class="accordion mb-3">
+        <div class="mb-4">
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Can I request additional services or amenities?
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </button>
+            <div class="accordion-content">
+                <b>Yes</b>, you can request additional services such as housekeeping, airport transfers, grocery delivery, or special requests like extra bedding or baby cribs. Contact the property owner/manager or use our messaging platform to make your requests.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">
+                What safety measures are in place?
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </button>
+            <div class="accordion-content">
+                Our properties adhere to <b>Safety</b> standards and may include features such as smoke detectors, fire extinguishers, first aid kits, and emergency contact information. We also recommend familiarizing yourself with the property's layout and emergency exits upon check-in.
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Are pets allowed in the properties?
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </button>
+            <div class="accordion-content">
+                Some properties may <b>Allow</b> pets while others may have restrictions or additional fees for pets. You can filter your search to find pet-friendly properties or contact the property owner/manager for more information about their pet policy.
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Do I need to create an account to add a review or make a payment?
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </button>
+            <div class="accordion-content">
+                <strong>Yes</strong>, you need to be logged in to add a review or make a payment for booking a house. Creating an account ensures that we can provide a secure and personalized experience for all our users. It also helps us verify the authenticity of reviews and manage your bookings efficiently. You can easily sign up or log in using the "Login/Sign Up" button on the top right corner of the website.
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Can I cancel my booking and get a refund?
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </button>
+            <div class="accordion-content">
+                <b>No,</b>There is strictly no refund policy.
+            </div>
+        </div>
+    </div>
+</div>
+</div>  
+
