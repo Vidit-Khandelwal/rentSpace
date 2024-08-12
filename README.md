@@ -35,3 +35,7 @@ Ensured security and data privacy through encryption and data validation.
 Deployed the web application on a cloud platform on Cloudinary to make it accessible online.
 
 This WanderLust project showcases my proficiency in full-stack web development, from creating an engaging front-end to managing the back-end and database components. It allows users to search for properties and experience the key functionalities of the Airbnb platform in a seamless and secure manner.
+
+#Deployement
+Deployed
+
