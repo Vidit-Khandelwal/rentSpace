@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const Reviews = require("../models/review");
 const wrapAsync = require("../utils/wrapAsync");
 
 module.exports.index = async (req,res) => {
@@ -25,7 +26,7 @@ module.exports.showListing = wrapAsync(async (req,res) => {
     console.log(listing);
     const categoryArray = listing.category;
     const categoryString = categoryArray.join(', ');
-    res.render("listings/show.ejs" , {listing , categoryString});
+    res.render("listings/show.ejs" , {listing, categoryString});
 });
 
 module.exports.createListing =  wrapAsync(async (req,res,next) => {
