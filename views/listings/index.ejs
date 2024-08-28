@@ -241,10 +241,10 @@
                 <div class="card-body">
                   <p class="card-text mt-2">
                     <b><%= listing.title %><br></b>
-                    <i class="priceBeforeGST"><b>&#8377;<%=listing.price.toLocaleString("en-IN") %> / night</b></i>
+                    <i class="priceBeforeGST"><b>&#8377;<%=listing.price.toLocaleString("en-IN") %></b></i>
                     <br>
                     <% let priceAfterGST = (listing.price)*1.18; %>
-                    <i class="GSTtax-info"><b>&#8377;<%=priceAfterGST.toLocaleString("en-IN")%> / night</b></i>
+                    <i class="GSTtax-info"><b>&#8377;<%=priceAfterGST.toLocaleString("en-IN")%></b></i>
                 </p>
                 </div>
               </div>

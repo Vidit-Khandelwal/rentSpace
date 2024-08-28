@@ -32,3 +32,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+document.querySelectorAll('.accordion-header').forEach(button => {
+    button.addEventListener('click', () => {
+        const accordionItem = button.parentElement;
+        const isActive = accordionItem.classList.contains('active');
+
+        document.querySelectorAll('.accordion-item').forEach(item => {
+            item.classList.remove('active');
+            item.querySelector('.accordion-content').style.maxHeight = '0';
+        });
+
+        if (!isActive) {
+            accordionItem.classList.add('active');
+            const content = button.nextElementSibling;
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    });
+});
+
