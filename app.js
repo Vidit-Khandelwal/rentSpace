@@ -11,6 +11,7 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
+const Listing = require("./models/listing.js")
 
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -100,6 +101,61 @@ async function main(){
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+
+const categoryMapping = {
+  'trendings': 'Trending',
+  'rooms': 'Rooms',
+  'iconic_cities': 'Iconic Cities',
+  'mountains': 'Mountains',
+  'castles': 'Castles',
+  'amazing_pools': 'Amazing Pools',
+  'campings': 'Camping',
+  'farms': 'Farms',
+  'arctics': 'Arctic',
+  'tropicals': 'Tropical',
+  'beaches': 'Beaches',
+  'skiings': 'Skiing',
+  'sports': 'Sports',
+  'bed_and_breakfast': 'Bed and Breakfast',
+  'cloudy': 'Cloudy',
+  'riversides': 'RiverSide',
+  'boats': 'Boat',
+  'luxury': 'Luxury'
+};
+
+
+app.get("/categories/:category", async (req,res) => { 
+  const category = req.params.category;
+  const normalizedCategory = categoryMapping[category.toLowerCase()] || category;
+  try {
+    const listings = await Listing.find({
+        category: { $in: [normalizedCategory] }
+    }).populate({path: "reviews" , populate: {
+      path: "author",
+},
+}).populate("owner");
+
+if(listings.length != 0){
+  res.render('categories/category.ejs', { 
+    category: normalizedCategory,
+    listings: listings
+});
+}else{
+  if(categoryMapping[category] == undefined){
+    req.flash("error" , `There is no category named ${category} on our website`);
+  res.redirect("/listings");
+  }else{
+    req.flash("error" , `No listings in ${category} category`);
+    res.redirect("/listings");
+  }
+  
+}   
+} catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+}
+});
+
 
 app.all("*" , (req,res,next) => {
     next(new ExpressError(404 , "Page not found!!"));

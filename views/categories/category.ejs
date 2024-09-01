@@ -1,0 +1,291 @@
+<% layout("/layouts/boilerplate") %>
+
+    <style>
+      #filters {
+         display: flex; 
+         flex-wrap: wrap; 
+      }
+
+      .filter{
+        text-align: center;
+        margin-right: 2.2rem;
+        margin-top: 1.7rem;
+        opacity: 0.6;
+        font-size: 1.2rem;
+      }
+
+      .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+      }
+
+      .filter p{
+        font-size: 0.8rem;
+      }
+
+      .filter-width{
+        display: flex;
+        width: 100%;
+        overflow-x: scroll; /* Enable horizontal scrolling */
+            white-space: nowrap; /* Prevent line breaks */
+            scrollbar-width: none; /* For Firefox */
+            -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+      }
+
+      .filter-width::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+
+        .fade-overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            pointer-events: none; /* Allow clicks to pass through */
+            transition: opacity 0.3s ease;
+        }
+        .fade-overlay.left {
+            left: 0;
+            background: linear-gradient(to right, white, transparent);
+        }
+        .fade-overlay.right {
+            right: 0;
+            background: linear-gradient(to left, white, transparent);
+        }
+
+        .filter-scrapper{
+          position: relative;
+          width: 100%;
+            overflow: hidden;
+        }
+
+        a{
+          text-decoration: none;
+          color: #000000;
+        }
+
+        /* Tax Button */
+        .tax-toggle{
+          border: 2px solid black;
+          border-radius: 1rem;
+          height: 2rem;
+          width: 15.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1rem;   
+        }
+
+        .GSTtax-info{
+          display: none;
+        }
+
+        .strikethrough {
+      text-decoration: line-through;
+    }
+    </style>
+
+
+
+<div id="filters">
+
+    <!-- Consists of categories and fade effect -->
+    <div class="filter-scrapper"> 
+
+    <div class="filter-width" id="filter-width">
+
+      <a href="/categories/trendings"><div class="filter">
+          <div><i class="fa-solid fa-fire"></i></div>
+          <p>Trending</p>
+      </div>
+    </a>
+  
+      <a href="/categories/rooms"><div class="filter">
+          <div><i class="fa-solid fa-bed"></i></div>
+          <p>Rooms</p>
+      </div>
+    </a>
+  
+      <a href="/categories/iconic_cities"><div class="filter">
+          <div><i class="fa-solid fa-mountain-city"></i></div>
+          <p>Iconic Cities</p>
+      </div>
+    </a>
+  
+      <a href="/categories/mountains"><div class="filter">
+          <div><i class="fa-solid fa-mountain"></i></div>
+          <p>Mountains</p>
+      </div>
+    </a>
+  
+      <a href="/categories/castles"><div class="filter">
+          <div><i class="fa-brands fa-fort-awesome"></i></div>
+          <p>Castles</p>
+      </div>
+    </a>
+  
+      <a href="/categories/amazing_pools"><div class="filter">
+          <div><i class="fa-solid fa-person-swimming"></i></div>
+          <p>Amazing Pools</p>
+      </div>
+    </a>
+  
+      <a href="/categories/campings"><div class="filter">
+          <div><i class="fa-solid fa-campground"></i></div>
+          <p>Camping</p>
+      </div>
+    </a>
+  
+      <a href="/categories/farms"><div class="filter">
+          <div><i class="fa-solid fa-wheat-awn"></i></div>
+          <p>Farms</p>
+      </div>
+    </a>
+  
+      <a href="/categories/arctics"><div class="filter">
+          <div><i class="fa-regular fa-snowflake"></i></div>
+          <p>Arctic</p>
+      </div>
+    </a>
+  
+      <a href="/categories/tropicals"><div class="filter">
+          <div><i class="fa-solid fa-tree"></i></div>
+          <p>Tropical</p>
+      </div>
+    </a>
+  
+      <a href="/categories/beaches"><div class="filter">
+          <div><i class="fa-solid fa-umbrella-beach"></i></div>
+          <p>Beaches</p>
+      </div>
+    </a>
+  
+      <a href="/categories/skiings"><div class="filter">
+          <div><i class="fa-solid fa-person-skiing"></i></div>
+          <p>Skiing</p>
+      </div>
+    </a>
+  
+      <a href="/categories/sports"><div class="filter">
+          <div><i class="fa-solid fa-medal"></i></div>
+          <p>Sports</p>
+      </div>
+    </a>
+  
+      <a href="/categories/bed_and_breakfast"><div class="filter">
+          <div><i class="fa-solid fa-mug-saucer"></i></div>
+          <p>Bed and Breakfast</p>
+      </div>
+    </a>
+
+      <a href="/categories/cloudy"><div class="filter">
+        <div><i class="fa-solid fa-cloud-bolt"></i></div>
+        <p>Cloudy</p>
+    </div>
+  </a>
+  
+    <a href="/categories/riversides"><div class="filter">
+          <div><i class="fa-solid fa-water"></i></div>
+          <p>RiverSide</p>
+      </div>
+    </a>
+
+    <a href="/categories/boats"><div class="filter">
+      <div><i class="fa-solid fa-sailboat"></i></div>
+      <p>Boat</p>
+  </div>
+</a>
+
+<a href="/categories/luxury"><div class="filter">
+  <div><i class="fa-solid fa-helicopter"></i></div>
+  <p>Luxury</p>
+</div>
+</a>
+
+  </div>
+  <div class="fade-overlay left" id="leftFade"></div>
+  <div class="fade-overlay right" id="rightFade"></div>
+
+</div>
+
+    <div class="tax-toggle mt-2 p-2 ms-auto me-auto mb-4">
+      <div class="form-check-reverse form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+      <label class="form-check-label tax-text" for="flexSwitchCheckDefault">Display total after taxes</label>
+      </div>
+    </div>
+  </div>
+
+  <h2><%=category%> Listings</h2>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+
+    <% for(let listing of listings){ %>
+        <a href="/listings/<%=listing._id%>" class="listing-link">
+        <div class="card col listing-card">
+            <img 
+            src="<%= listing.image.url %>" 
+            class="card-img-top" 
+            style ="height: 20rem;" 
+            alt="listing_image">
+
+            <div class="card-img-overlay"></div>
+
+
+            <div class="card-body">
+              <p class="card-text mt-2">
+                <b><%= listing.title %><br></b>
+                <i class="priceBeforeGST"><b>&#8377;<%=listing.price.toLocaleString("en-IN") %></b></i>
+                <br>
+                <% let priceAfterGST = (listing.price)*1.18; %>
+                <i class="GSTtax-info"><b>&#8377;<%=priceAfterGST.toLocaleString("en-IN")%></b></i>
+            </p>
+            </div>
+          </div>
+        </a>
+          <% } %>
+
+</div>
+
+<script>
+
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+taxSwitch.addEventListener("click", () => {
+let taxInfo = document.getElementsByClassName("GSTtax-info");
+let priceBeforeGSt = document.querySelectorAll('.priceBeforeGST');
+
+for (info of taxInfo) {
+  if (info.style.display != "inline") {
+    info.style.display = "inline";
+    priceBeforeGSt.forEach((price) => {
+      price.style.textDecoration = 'line-through';
+    });
+  } else {
+    info.style.display = "none";
+    priceBeforeGSt.forEach((price) => {
+      price.style.textDecoration = 'none';
+    });
+  }
+}
+});
+    
+    const scrollContainer = document.getElementById('filter-width');
+    const leftFade = document.getElementById('leftFade');
+    const rightFade = document.getElementById('rightFade');
+
+function updateFadeOverlay() {
+  const scrollLeft = scrollContainer.scrollLeft;
+  const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+  
+  leftFade.style.opacity = scrollLeft > 0 ? '1' : '0';
+  rightFade.style.opacity = scrollLeft < maxScrollLeft ? '1' : '0';
+}
+
+scrollContainer.addEventListener('scroll', updateFadeOverlay);
+
+// Initial update on load
+updateFadeOverlay();
+
+
+
+  </script>
