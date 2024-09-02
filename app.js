@@ -96,7 +96,7 @@ async function main(){
       
   //   let registeredUser = await User.register(fakeUser , "helloworld");
   //   res.send(registeredUser);
-  // })
+  // })  
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
